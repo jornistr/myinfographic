@@ -29,7 +29,8 @@ const genAI = new GoogleGenerativeAI(API_KEY);
 
 // Configure Multer for file upload
 const upload = multer({
-    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+    limits: { fileSize: 50 * 1024 * 1024 }, // 50MB limit
+    storage: multer.memoryStorage(),
     fileFilter: (req, file, cb) => {
         if (file.mimetype === 'application/pdf') {
             cb(null, true);

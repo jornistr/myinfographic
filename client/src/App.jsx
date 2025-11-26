@@ -18,16 +18,23 @@ function App() {
     const handleFileUpload = async (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
-            if (selectedFile.size > 10 * 1024 * 1024) {
-                setError('File size exceeds 10MB limit.');
+            if (selectedFile.size > 50 * 1024 * 1024) {
+                setError('File size exceeds 50MB limit.');
                 return;
             }
             if (selectedFile.type !== 'application/pdf') {
                 setError('Only PDF files are allowed.');
                 return;
             }
+
+            // Warning for large files
+            if (selectedFile.size > 25 * 1024 * 1024) {
+                setError('⚠️ Large file detected. Processing may take longer and results might be affected due to file size.');
+            } else {
+                setError('');
+            }
+
             setFile(selectedFile);
-            setError('');
         }
     };
 

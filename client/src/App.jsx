@@ -129,47 +129,58 @@ function App() {
             .catch(err => console.error('Failed to check status', err));
     }, []);
 
+    const [showExamples, setShowExamples] = useState(false);
+
     return (
         <div className="app-container">
-            <header>
-                <h1>MyInfographic</h1>
-                <p>Bridging Research and Impact</p>
+            <header className="app-header">
+                <div className="logo">MyInfographic</div>
             </header>
 
             <main>
                 {/* Step 1: Upload/Input */}
                 {step === 1 && (
                     <div className="card">
-                        <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', textAlign: 'center' }}>
-                            PDF or Text → Infographic
-                        </h1>
-                        <p style={{ fontSize: '0.9rem', color: '#888', marginBottom: '2rem', textAlign: 'center' }}>
-                            AI-powered by Nano Banana Pro
-                        </p>
-
-                        {/* Example Images - Side by Side */}
-                        <div className="example-images-grid">
-                            <div className="example-item">
-                                <img
-                                    src="/examples/breast-cancer.png"
-                                    alt="Example: Kids audience"
-                                    className="example-img"
-                                />
-                                <p className="example-caption">Kids (10 years old)</p>
-                            </div>
-                            <div className="example-item">
-                                <img
-                                    src="/examples/narrative-engine.png"
-                                    alt="Example: Expert audience"
-                                    className="example-img"
-                                />
-                                <p className="example-caption">Expert researchers</p>
-                            </div>
+                        {/* Main Explainer Image */}
+                        <div className="explainer-section">
+                            <img
+                                src="/explainer.jpg"
+                                alt="How it works"
+                                className="explainer-img"
+                            />
                         </div>
 
-                        <p style={{ fontSize: '0.9rem', color: '#999', marginBottom: '2rem', textAlign: 'center', fontStyle: 'italic' }}>
-                            Choose your audience level to match your presentation needs
-                        </p>
+                        {/* Toggleable Examples Link */}
+                        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                            <button
+                                onClick={() => setShowExamples(!showExamples)}
+                                className="link-btn"
+                            >
+                                {showExamples ? 'Hide examples' : 'View example infographics'}
+                            </button>
+                        </div>
+
+                        {/* Hidden Examples */}
+                        {showExamples && (
+                            <div className="example-images-grid fade-in">
+                                <div className="example-item">
+                                    <img
+                                        src="/examples/breast-cancer.png"
+                                        alt="Example: Kids audience"
+                                        className="example-img"
+                                    />
+                                    <p className="example-caption">Kids (10 years old)</p>
+                                </div>
+                                <div className="example-item">
+                                    <img
+                                        src="/examples/narrative-engine.png"
+                                        alt="Example: Expert audience"
+                                        className="example-img"
+                                    />
+                                    <p className="example-caption">Expert researchers</p>
+                                </div>
+                            </div>
+                        )}
 
                         {/* Input Mode Toggle */}
                         <div className="input-mode-toggle">

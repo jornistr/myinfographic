@@ -13,13 +13,14 @@ export const uploadPDF = async (file) => {
     return response.data;
 };
 
-export const generatePrompt = async (text, audience, terms, focus, language) => {
+export const generatePrompt = async (text, audience, terms, focus, language, styleNotes) => {
     const response = await axios.post('/api/generate-prompt', {
         text,
         audience,
         terms,
         focus,
-        language
+        language,
+        styleNotes
     });
     return response.data;
 };

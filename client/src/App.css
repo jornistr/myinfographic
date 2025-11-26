@@ -85,30 +85,72 @@ input[type="file"] {
 }
 
 /* Form Elements */
-.form-group {
+.option-group {
     margin-bottom: 1.5rem;
 }
 
-label {
+.option-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #ccc;
+    font-weight: 500;
+    color: #e0e0e0;
 }
 
-select {
+.option-group select {
     width: 100%;
-    padding: 0.8rem;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border-color);
+    padding: 0.75rem;
     border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
     color: #fff;
     font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-select:focus {
+.option-group select:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.option-group select:focus {
     outline: none;
-    border-color: var(--accent-color);
+    border-color: #8b5cf6;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.settings-section {
+    margin-bottom: 2rem;
+}
+
+.advanced-section {
+    padding: 1.5rem;
+    background: rgba(139, 92, 246, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    margin-top: 1rem;
+}
+
+.advanced-toggle {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.advanced-toggle:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.advanced-toggle span {
+    color: #8b5cf6;
+    font-weight: 500;
+    font-size: 0.95rem;
 }
 
 /* Buttons */

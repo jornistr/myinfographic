@@ -7,11 +7,13 @@ function App() {
     const [file, setFile] = useState(null);
     const [pdfText, setPdfText] = useState('');
     const [options, setOptions] = useState({
-        audience: 'Undergraduate',
-        terms: 'Include & Explain',
-        focus: 'Core scientific concepts',
-        language: 'Deutsch' // Default language
+        language: 'Deutsch', // BASIC
+        audience: 'General public', // BASIC
+        focus: 'Balanced overview', // BASIC - neutral default
+        terms: 'Include & Explain', // ADVANCED
+        styleNotes: '' // ADVANCED - optional style customization
     });
+    const [showAdvanced, setShowAdvanced] = useState(false);
     const [status, setStatus] = useState('');
     const [resultImage, setResultImage] = useState('');
     const [error, setError] = useState('');
@@ -60,7 +62,8 @@ function App() {
                 options.audience,
                 options.terms,
                 options.focus,
-                options.language // Pass language to backend
+                options.language,
+                options.styleNotes // Pass style notes to backend
             );
 
             // Step 3: Generate Infographic
@@ -146,41 +149,91 @@ function App() {
 
                 {/* Step 2: Options */}
                 {step === 2 && (
-                    <div className="card options-section">
-                        <h2>2. Configure Options</h2>
-                        <div className="form-group">
-                            <label>Target Audience</label>
-                            <select name="audience" value={options.audience} onChange={handleOptionChange}>
-                                <option value="Complete Beginner">Complete Beginner</option>
-                                <option value="5th Grader">5th Grader</option>
-                                <option value="Undergraduate">Undergraduate</option>
-                                <option value="Conference Poster">Conference Poster</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label>Technical Terms</label>
-                            <select name="terms" value={options.terms} onChange={handleOptionChange}>
-                                <option value="Include & Explain">Include & Explain</option>
-                                <option value="Exclude, simplify to context">Exclude, simplify to context</option>
-                            </select>
-                        </div>
-                        <div className="option-group">
-                            <label>Focus Mode</label>
-                            <select value={options.focus} onChange={(e) => setOptions({ ...options, focus: e.target.value })}>
-                                <option>Core scientific concepts</option>
-                                <option>Methodology & process</option>
-                                <option>Results & findings</option>
-                                <option>Broader implications</option>
-                            </select>
+                    <div className="card">
+                        <h2>Configure Your Infographic</h2>
+                        <p style={{ marginBottom: '2rem', color: '#888' }}>
+                            Quick start with defaults, or customize with advanced settings below.
+                        </p>
+
+                        {/* BASIC SETTINGS */}
+                        <div className="settings-section">
+                            <div className="option-group">
+                                <label>Output Language</label>
+                                <select value={options.language} onChange={(e) => setOptions({ ...options, language: e.target.value })}>
+                                    <option>Deutsch</option>
+                                    <option>English</option>
+                                </select>
+                            </div>
+
+                            <div className="option-group">
+                                <label>Target Audience</label>
+                                <select value={options.audience} onChange={(e) => setOptions({ ...options, audience: e.target.value })}>
+                                    <option>General public</option>
+                                    <option>High school students</option>
+                                    <option>Undergraduate</option>
+                                    <option>Graduate/Professional</option>
+                                    <option>Expert researchers</option>
+                                </select>
+                            </div>
+
+                            <div className="option-group">
+                                <label>Content Focus</label>
+                                <select value={options.focus} onChange={(e) => setOptions({ ...options, focus: e.target.value })}>
+                                    <option>Balanced overview</option>
+                                    <option>Core scientific concepts</option>
+                                    <option>Methodology & process</option>
+                                    <option>Results & findings</option>
+                                    <option>Broader implications</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div className="option-group">
-                            <label>Output Language</label>
-                            <select value={options.language} onChange={(e) => setOptions({ ...options, language: e.target.value })}>
-                                <option>Deutsch</option>
-                                <option>English</option>
-                            </select>
+                        {/* ADVANCED SETTINGS TOGGLE */}
+                        <div className="advanced-toggle" onClick={() => setShowAdvanced(!showAdvanced)}>
+                            <span>{showAdvanced ? '▼' : '▶'} Advanced Settings</span>
                         </div>
+
+                        {/* ADVANCED SETTINGS */}
+                        {showAdvanced && (
+                            <div className="settings-section advanced-section">
+                                <div className="option-group">
+                                    <label>Technical Terms</label>
+                                    <select value={options.terms} onChange={(e) => setOptions({ ...options, terms: e.target.value })}>
+                                        <option>Include & Explain</option>
+                                        <option>Include without explanation</option>
+                                        <option>Exclude, simplify to context</option>
+                                    </select>
+                                </div>
+
+                                <div className="option-group">
+                                    <label>
+                                        Style Notes <span style={{ color: '#888', fontSize: '0.85rem' }}>(optional)</span>
+                                    </label>
+                                    <textarea
+                                        value={options.styleNotes}
+                                        onChange={(e) => setOptions({ ...options, styleNotes: e.target.value })}
+                                        placeholder="e.g., 'Use vibrant colors', 'Minimalist design', 'Hand-drawn style'..."
+                                        rows="3"
+                                        style={{
+                                            width: '100%',
+                                            padding: '0.75rem',
+                                            borderRadius: '8px',
+                                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                                            background: 'rgba(255, 255, 255, 0.05)',
+                                            color: '#fff',
+                                            fontSize: '0.95rem',
+                                            fontFamily: 'inherit',
+                                            resize: 'vertical'
+                                        }}
+                                    />
+                                    <p style={{ fontSize: '0.8rem', color: '#888', marginTop: '0.5rem' }}>
+                                        Describe visual style preferences only (colors, layout, artistic approach)
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
+                        {error && <p className="error-msg">{error}</p>}
 
                         <div className="btn-group">
                             <button className="btn secondary" onClick={() => setStep(1)}>← Back</button>

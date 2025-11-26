@@ -169,6 +169,7 @@ function App() {
                                 <label>Target Audience</label>
                                 <select value={options.audience} onChange={(e) => setOptions({ ...options, audience: e.target.value })}>
                                     <option>General public</option>
+                                    <option>Kids (10 years old)</option>
                                     <option>High school students</option>
                                     <option>Undergraduate</option>
                                     <option>Graduate/Professional</option>

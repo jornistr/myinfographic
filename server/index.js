@@ -70,9 +70,9 @@ app.post('/api/upload', upload.single('pdf'), async (req, res) => {
 
 // 2. Generate Prompt (LLM Integration)
 app.post('/api/generate-prompt', async (req, res) => {
-    const { text, audience, terms, focus } = req.body;
+    const { text, audience, terms, focus, language } = req.body;
 
-    if (!text || !audience || !terms || !focus) {
+    if (!text || !audience || !terms || !focus || !language) {
         return res.status(400).json({ error: 'Missing required parameters' });
     }
 
@@ -84,6 +84,7 @@ INPUT DATA:
 - Level: ${audience}
 - Technical terms: ${terms}
 - Focus: ${focus}
+- Output Language: ${language}
 
 TASK:
 Create a complete Nano Banana Pro prompt that:
@@ -91,6 +92,7 @@ Create a complete Nano Banana Pro prompt that:
   - Adjusts language, visuals, and detail level to the selected audience
   - Includes or excludes technical terms exactly as instructed
   - Follows the selected focus mode
+  - **CRITICAL: The infographic MUST be in ${language}. All text, labels, headings, and descriptions must be in ${language}.**
   - Provides clear visual layout instructions (structure, hierarchy, sections)
   - Includes labels, icons, and simple diagram descriptions
   - Is explicit enough for Nano Banana Pro to generate the infographic
@@ -99,6 +101,8 @@ OUTPUT FORMAT:
 {
   "prompt": "<FINAL_NANO_BANANA_PROMPT>"
 }
+
+IMPORTANT: Make sure to explicitly state in the prompt that all text in the infographic should be in ${language}.
 `;
 
     try {

@@ -10,6 +10,7 @@ function App() {
         audience: 'Undergraduate',
         terms: 'Include & Explain',
         focus: 'Core scientific concepts',
+        language: 'Deutsch' // Default language
     });
     const [status, setStatus] = useState('');
     const [resultImage, setResultImage] = useState('');
@@ -54,7 +55,13 @@ function App() {
 
             // Step 2: Generate Prompt
             setStatus('Generating infographic prompt...');
-            const promptRes = await generatePrompt(uploadRes.text, options.audience, options.terms, options.focus);
+            const promptRes = await generatePrompt(
+                uploadRes.text,
+                options.audience,
+                options.terms,
+                options.focus,
+                options.language // Pass language to backend
+            );
 
             // Step 3: Generate Infographic
             setStatus('Creating infographic with Nano Banana Pro...');
@@ -74,7 +81,7 @@ function App() {
             console.error('Process Error:', err);
             setError(`An error occurred: ${err.message || 'Unknown error'}`);
             // Do not reset step immediately so user can see the error
-            // setStep(2); 
+            // setStep(2);
         }
     };
 
@@ -157,13 +164,24 @@ function App() {
                                 <option value="Exclude, simplify to context">Exclude, simplify to context</option>
                             </select>
                         </div>
-                        <div className="form-group">
+                        <div className="option-group">
                             <label>Focus Mode</label>
-                            <select name="focus" value={options.focus} onChange={handleOptionChange}>
-                                <option value="Contextual explanation">Contextual explanation</option>
-                                <option value="Core scientific concepts">Core scientific concepts</option>
+                            <select value={options.focus} onChange={(e) => setOptions({ ...options, focus: e.target.value })}>
+                                <option>Core scientific concepts</option>
+                                <option>Methodology & process</option>
+                                <option>Results & findings</option>
+                                <option>Broader implications</option>
                             </select>
                         </div>
+
+                        <div className="option-group">
+                            <label>Output Language</label>
+                            <select value={options.language} onChange={(e) => setOptions({ ...options, language: e.target.value })}>
+                                <option>Deutsch</option>
+                                <option>English</option>
+                            </select>
+                        </div>
+
                         <div className="btn-group">
                             <button className="btn secondary" onClick={() => setStep(1)}>← Back</button>
                             <button className="btn primary" onClick={startProcess}>Generate Infographic</button>

@@ -1,0 +1,20 @@
+{
+    "name": "myinfographic",
+    "version": "1.0.0",
+    "description": "Transform scientific PDFs into infographics using Nano Banana Pro",
+    "scripts": {
+        "start": "node server/index.js",
+        "build": "cd client && npm install && npm run build",
+        "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+        "dev:server": "cd server && node index.js",
+        "dev:client": "cd client && npm run dev"
+    },
+    "keywords": [
+        "infographic",
+        "pdf",
+        "ai",
+        "gemini"
+    ],
+    "author": "",
+    "license": "MIT"
+}

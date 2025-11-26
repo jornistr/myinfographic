@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyInfographic - Transform PDFs into Stunning Infographics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0 2rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a0a0a0;
+            margin-bottom: 3rem;
+        }
+
+        .hero {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #c0c0c0;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .feature p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .powered-by {
+            text-align: center;
+            padding: 2rem 0;
+            color: #808080;
+        }
+
+        .powered-by strong {
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #606060;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                padding: 2rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>MyInfographic</h1>
+            <p class="subtitle">Bridging Research and Real-World Impact</p>
+        </header>
+
+        <div class="hero">
+            <h2>Transform Scientific PDFs into Stunning Infographics</h2>
+            <p>
+                Upload your research papers, configure your audience and style preferences,
+                and let AI create beautiful, accurate infographics that make complex science accessible to everyone.
+            </p>
+            <a href="http://localhost:5173" class="cta-button">Launch App →</a>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>🚀 AI-Powered</h3>
+                <p>
+                    Uses Google's Gemini 2.0 Flash for intelligent prompt generation and
+                    Nano Banana Pro (Gemini 3 Pro Image) for high-quality infographic creation.
+                </p>
+            </div>
+
+            <div class="feature">
+                <h3>🎯 Customizable</h3>
+                <p>
+                    Choose your target audience, technical term handling, and focus mode
+                    to create infographics perfectly tailored to your needs.
+                </p>
+            </div>
+
+            <div class="feature">
+                <h3>📊 High Quality</h3>
+                <p>
+                    Generates 2K resolution infographics with Google Search grounding
+                    for factual accuracy and professional text rendering.
+                </p>
+            </div>
+
+            <div class="feature">
+                <h3>⚡ Fast & Easy</h3>
+                <p>
+                    Simple three-step process: Upload PDF, configure options, and generate.
+                    Get your infographic in minutes, not hours.
+                </p>
+            </div>
+        </div>
+
+        <div class="powered-by">
+            <p>Powered by <strong>Nano Banana Pro</strong> (Gemini 3 Pro Image Preview)</p>
+            <p>Google's state-of-the-art image generation model for professional assets</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 MyInfographic. Built with Google Gemini AI.</p>
+    </footer>
+</body>
+
+</html>

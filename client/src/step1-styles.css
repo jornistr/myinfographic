@@ -1,33 +1,18 @@
 /* New styles for improved Step 1 */
 
-.hero-section {
-    text-align: center;
+.example-images {
     margin-bottom: 2rem;
 }
 
-.use-cases {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.use-case {
-    background: rgba(139, 92, 246, 0.1);
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    font-size: 0.9rem;
-    text-align: center;
+.example-images img {
+    max-width: 100%;
+    height: auto;
 }
 
 .input-mode-toggle {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 0.5rem;
-    border-radius: 12px;
 }
 
 .toggle-btn {
@@ -38,7 +23,7 @@
     color: #b0b0b0;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
     transition: all 0.2s;
 }
@@ -68,7 +53,7 @@
     font-size: 1rem;
     font-family: 'Monaco', 'Courier New', monospace;
     resize: vertical;
-    min-height: 200px;
+    min-height: 150px;
     line-height: 1.6;
 }
 
@@ -84,9 +69,5 @@
 
 .upload-prompt p {
     margin: 0.5rem 0;
-}
-
-.upload-hint {
-    font-size: 0.85rem;
-    color: #888;
+    font-size: 1.1rem;
 }

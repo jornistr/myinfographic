@@ -1,12 +1,36 @@
-/* New styles for improved Step 1 */
+/* Step 1 Styles */
 
-.example-images {
-    margin-bottom: 2rem;
+.example-images-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
-.example-images img {
-    max-width: 100%;
+.example-item {
+    text-align: center;
+}
+
+.example-img {
+    width: 100%;
     height: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.example-img:hover {
+    transform: scale(1.5);
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+    z-index: 10;
+    position: relative;
+}
+
+.example-caption {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #888;
 }
 
 .input-mode-toggle {
@@ -39,8 +63,35 @@
     color: #fff;
 }
 
-.text-input-section {
+.upload-box-clean {
+    display: block;
+    padding: 2rem;
+    border: 2px dashed rgba(139, 92, 246, 0.4);
+    border-radius: 12px;
+    background: rgba(139, 92, 246, 0.05);
+    cursor: pointer;
+    transition: all 0.2s;
     margin-bottom: 1.5rem;
+}
+
+.upload-box-clean:hover {
+    border-color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #b0b0b0;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
 }
 
 .text-input-area {
@@ -67,7 +118,12 @@
     color: #666;
 }
 
-.upload-prompt p {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
+@media (max-width: 768px) {
+    .example-images-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .example-img:hover {
+        transform: scale(1.2);
+    }
 }

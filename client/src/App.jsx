@@ -137,50 +137,39 @@ function App() {
             </header>
 
             <main>
-                {/* API Status Indicator */}
-                <div style={{ marginBottom: '1rem', fontSize: '0.8rem', color: '#888' }}>
-                    API Status:
-                    <span style={{ color: apiStatus.llm ? '#4ade80' : '#ef4444', marginLeft: '0.5rem' }}>
-                        LLM: {apiStatus.llm ? 'Connected' : 'Mock'}
-                    </span>
-                    <span style={{ color: apiStatus.nanoBanana ? '#4ade80' : '#ef4444', marginLeft: '1rem' }}>
-                        Nano Banana: {apiStatus.nanoBanana ? 'Connected' : 'Mock'}
-                    </span>
-                </div>
-
                 {/* Step 1: Upload/Input */}
                 {step === 1 && (
                     <div className="card">
-                        <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', textAlign: 'center' }}>
+                        <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', textAlign: 'center' }}>
                             PDF or Text → Infographic
                         </h1>
-                        <p style={{ fontSize: '1rem', color: '#888', marginBottom: '2rem', textAlign: 'center' }}>
-                            Powered by Nano Banana Pro
+                        <p style={{ fontSize: '0.9rem', color: '#888', marginBottom: '2rem', textAlign: 'center' }}>
+                            AI-powered by Nano Banana Pro
                         </p>
 
-                        {/* Example Images */}
-                        <div className="example-images">
-                            <img
-                                src="/examples/breast-cancer.png"
-                                alt="Example infographic"
-                                style={{
-                                    width: '100%',
-                                    borderRadius: '12px',
-                                    marginBottom: '1rem',
-                                    border: '1px solid rgba(139, 92, 246, 0.3)'
-                                }}
-                            />
-                            <img
-                                src="/examples/narrative-engine.png"
-                                alt="Example infographic"
-                                style={{
-                                    width: '100%',
-                                    borderRadius: '12px',
-                                    marginBottom: '2rem',
-                                    border: '1px solid rgba(139, 92, 246, 0.3)'
-                                }}
-                            />
+                        {/* Example Images - Side by Side */}
+                        <div className="example-images-grid">
+                            <div className="example-item">
+                                <img
+                                    src="/examples/breast-cancer.png"
+                                    alt="Example: Kids audience"
+                                    className="example-img"
+                                />
+                                <p className="example-caption">Kids (10 years old)</p>
+                            </div>
+                            <div className="example-item">
+                                <img
+                                    src="/examples/narrative-engine.png"
+                                    alt="Example: Expert audience"
+                                    className="example-img"
+                                />
+                                <p className="example-caption">Expert researchers</p>
+                            </div>
                         </div>
+
+                        <p style={{ fontSize: '0.9rem', color: '#999', marginBottom: '2rem', textAlign: 'center', fontStyle: 'italic' }}>
+                            Choose your audience level to match your presentation needs
+                        </p>
 
                         {/* Input Mode Toggle */}
                         <div className="input-mode-toggle">
@@ -208,17 +197,21 @@ function App() {
                                     id="file-input"
                                     style={{ display: 'none' }}
                                 />
-                                <label htmlFor="file-input" className="upload-box">
+                                <label htmlFor="file-input" className="upload-box-clean">
                                     {file ? (
-                                        <div className="file-selected">
-                                            <span className="file-icon">📄</span>
-                                            <span className="file-name">{file.name}</span>
-                                            <span className="file-size">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                                        <div className="file-info">
+                                            <span style={{ fontSize: '2rem' }}>📄</span>
+                                            <div style={{ marginLeft: '1rem', textAlign: 'left' }}>
+                                                <div style={{ fontWeight: '500', marginBottom: '0.25rem' }}>{file.name}</div>
+                                                <div style={{ fontSize: '0.85rem', color: '#888' }}>
+                                                    {(file.size / 1024 / 1024).toFixed(2)} MB
+                                                </div>
+                                            </div>
                                         </div>
                                     ) : (
-                                        <div className="upload-prompt">
-                                            <span className="upload-icon">⬆️</span>
-                                            <p>Click to upload</p>
+                                        <div className="upload-placeholder">
+                                            <span style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>⬆️</span>
+                                            <p style={{ fontSize: '1.1rem', margin: 0 }}>Click or drag PDF here</p>
                                         </div>
                                     )}
                                 </label>
@@ -235,7 +228,7 @@ function App() {
                                     rows="8"
                                     className="text-input-area"
                                 />
-                                <div className="char-count" style={{
+                                <div style={{
                                     textAlign: 'right',
                                     fontSize: '0.85rem',
                                     color: textInput.length >= 100 ? '#4ade80' : '#888',

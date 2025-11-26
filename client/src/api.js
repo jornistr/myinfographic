@@ -5,11 +5,16 @@ const API_URL = 'http://localhost:3000/api';
 export const uploadPDF = async (file) => {
     const formData = new FormData();
     formData.append('pdf', file);
-    const response = await axios.post(`${API_URL}/upload`, formData, {
+    const response = await axios.post('/api/upload', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
     });
+    return response.data;
+};
+
+export const processText = async (text) => {
+    const response = await axios.post('/api/process-text', { text });
     return response.data;
 };
 

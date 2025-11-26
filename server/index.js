@@ -68,6 +68,25 @@ app.post('/api/upload', upload.single('pdf'), async (req, res) => {
     }
 });
 
+// 1b. Text Processing (Alternative to PDF Upload)
+app.post('/api/process-text', async (req, res) => {
+    try {
+        const { text } = req.body;
+
+        if (!text || text.trim().length < 100) {
+            return res.status(400).json({
+                error: 'Text too short. Please provide at least 100 characters for meaningful infographic generation.'
+            });
+        }
+
+        // Return text directly (no parsing needed)
+        res.json({ text: text.trim() });
+    } catch (error) {
+        console.error('Text Processing Error:', error);
+        res.status(500).json({ error: 'Failed to process text' });
+    }
+});
+
 // 2. Generate Prompt (LLM Integration)
 app.post('/api/generate-prompt', async (req, res) => {
     const { text, audience, terms, focus, language, styleNotes } = req.body;

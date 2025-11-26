@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { uploadPDF, generatePrompt, generateInfographic } from './api';
+import { uploadPDF, processText, generatePrompt, generateInfographic } from './api';
 import './App.css';
+import './step1-styles.css';
 
 function App() {
     const [step, setStep] = useState(1); // 1: Upload, 2: Options, 3: Processing, 4: Result
     const [file, setFile] = useState(null);
     const [pdfText, setPdfText] = useState('');
+    const [inputMode, setInputMode] = useState('pdf'); // 'pdf' or 'text'
+    const [textInput, setTextInput] = useState('');
     const [options, setOptions] = useState({
         language: 'Deutsch', // BASIC
         audience: 'General public', // BASIC
@@ -46,19 +49,38 @@ function App() {
     };
 
     const startProcess = async () => {
+        if (inputMode === 'pdf' && !file) {
+            setError('Please upload a PDF file first.');
+            return;
+        }
+        if (inputMode === 'text' && !textInput.trim()) {
+            setError('Please enter some text first.');
+            return;
+        }
+
         setStep(3);
         setError('');
 
         try {
-            // Step 1: Upload & Extract
-            setStatus('Uploading and analyzing PDF...');
-            const uploadRes = await uploadPDF(file);
-            setPdfText(uploadRes.text);
+            let extractedText;
+
+            // Step 1: Get text (either from PDF or direct input)
+            if (inputMode === 'pdf') {
+                setStatus('Uploading and analyzing PDF...');
+                const uploadRes = await uploadPDF(file);
+                extractedText = uploadRes.text;
+            } else {
+                setStatus('Processing your text...');
+                const textRes = await processText(textInput);
+                extractedText = textRes.text;
+            }
+
+            setPdfText(extractedText);
 
             // Step 2: Generate Prompt
             setStatus('Generating infographic prompt...');
             const promptRes = await generatePrompt(
-                uploadRes.text,
+                extractedText,
                 options.audience,
                 options.terms,
                 options.focus,
@@ -126,27 +148,101 @@ function App() {
                     </span>
                 </div>
 
-                {/* Step 1: Upload */}
+                {/* Step 1: Upload/Input */}
                 {step === 1 && (
-                    <div className="card upload-section">
-                        <h2>1. Upload PDF</h2>
-                        <div className="upload-box">
-                            <input type="file" id="pdf-upload" accept=".pdf" onChange={handleFileUpload} />
-                            <label htmlFor="pdf-upload" className="upload-label">
-                                {file ? file.name : 'Drag & Drop or Click to Upload PDF'}
-                            </label>
+                    <div className="card">
+                        <div className="hero-section">
+                            <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem', lineHeight: '1.2' }}>
+                                Transform Complex Content into Clear Infographics
+                            </h1>
+                            <p style={{ fontSize: '1.2rem', color: '#b0b0b0', marginBottom: '2rem' }}>
+                                Upload papers, paste chat histories, or share notes. Get AI-generated visual summaries in seconds.
+                            </p>
                         </div>
+
+                        <div className="use-cases">
+                            <div className="use-case">📄 Research papers → Conference posters</div>
+                            <div className="use-case">💬 Long AI chats → Visual summaries</div>
+                            <div className="use-case">📝 Meeting notes → Shareable graphics</div>
+                            <div className="use-case">📚 Study materials → Learning aids</div>
+                        </div>
+
+                        {/* Input Mode Toggle */}
+                        <div className="input-mode-toggle">
+                            <button
+                                className={`toggle-btn ${inputMode === 'pdf' ? 'active' : ''}`}
+                                onClick={() => { setInputMode('pdf'); setError(''); }}
+                            >
+                                📄 Upload PDF
+                            </button>
+                            <button
+                                className={`toggle-btn ${inputMode === 'text' ? 'active' : ''}`}
+                                onClick={() => { setInputMode('text'); setError(''); }}
+                            >
+                                📝 Paste Text
+                            </button>
+                        </div>
+
+                        {/* PDF Upload Mode */}
+                        {inputMode === 'pdf' && (
+                            <div className="upload-section">
+                                <input
+                                    type="file"
+                                    accept="application/pdf"
+                                    onChange={handleFileUpload}
+                                    id="file-input"
+                                    style={{ display: 'none' }}
+                                />
+                                <label htmlFor="file-input" className="upload-box">
+                                    {file ? (
+                                        <div className="file-selected">
+                                            <span className="file-icon">📄</span>
+                                            <span className="file-name">{file.name}</span>
+                                            <span className="file-size">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                                        </div>
+                                    ) : (
+                                        <div className="upload-prompt">
+                                            <span className="upload-icon">⬆️</span>
+                                            <p>Click to upload PDF</p>
+                                            <p className="upload-hint">Max 50MB • Scientific papers, reports, documents</p>
+                                        </div>
+                                    )}
+                                </label>
+                            </div>
+                        )}
+
+                        {/* Text Input Mode */}
+                        {inputMode === 'text' && (
+                            <div className="text-input-section">
+                                <textarea
+                                    value={textInput}
+                                    onChange={(e) => { setTextInput(e.target.value); setError(''); }}
+                                    placeholder="Paste your text here... (chat histories, notes, articles, etc.)&#10;&#10;Minimum 100 characters for meaningful infographic generation."
+                                    rows="12"
+                                    className="text-input-area"
+                                />
+                                <div className="char-count" style={{
+                                    textAlign: 'right',
+                                    fontSize: '0.85rem',
+                                    color: textInput.length >= 100 ? '#4ade80' : '#888',
+                                    marginTop: '0.5rem'
+                                }}>
+                                    {textInput.length} characters {textInput.length < 100 && `(${100 - textInput.length} more needed)`}
+                                </div>
+                            </div>
+                        )}
+
                         {error && <p className="error-msg">{error}</p>}
+
                         <button
                             className="btn primary"
-                            disabled={!file}
                             onClick={() => setStep(2)}
+                            disabled={inputMode === 'pdf' ? !file : textInput.length < 100}
                         >
-                            Next: Configure Options →
+                            Continue →
                         </button>
                     </div>
                 )}
-
                 {/* Step 2: Options */}
                 {step === 2 && (
                     <div className="card">

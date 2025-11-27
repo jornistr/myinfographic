@@ -1,45 +1,103 @@
-/* Step 1 Styles */
+/* ============================================
+   STEP 1 - UPLOAD & INPUT STYLES
+   ============================================ */
 
+/* Explainer Section */
 .explainer-section {
-    margin-bottom: 1.5rem;
-    border-radius: 12px;
+    margin-bottom: var(--spacing-xl);
+    border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-md);
+    position: relative;
+}
+
+.explainer-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+            rgba(6, 182, 212, 0.1) 0%,
+            rgba(139, 92, 246, 0.1) 100%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.explainer-section:hover::before {
+    opacity: 1;
 }
 
 .explainer-img {
     width: 100%;
     height: auto;
     display: block;
+    transition: transform var(--transition-slow);
 }
+
+.explainer-section:hover .explainer-img {
+    transform: scale(1.02);
+}
+
+/* ============================================
+   EXAMPLE IMAGES
+   ============================================ */
 
 .link-btn {
     background: none;
     border: none;
-    color: #8b5cf6;
-    text-decoration: underline;
+    color: var(--gradient-purple);
+    text-decoration: none;
     cursor: pointer;
     font-size: 0.95rem;
-    padding: 0.5rem;
-    transition: color 0.2s;
+    padding: var(--spacing-sm) var(--spacing-md);
+    transition: all var(--transition-base);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    position: relative;
+}
+
+.link-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+            var(--gradient-cyan),
+            var(--gradient-purple),
+            var(--gradient-magenta));
+    transform: translateX(-50%);
+    transition: width var(--transition-base);
 }
 
 .link-btn:hover {
-    color: #a78bfa;
+    color: var(--gradient-cyan);
+    transform: translateY(-1px);
+}
+
+.link-btn:hover::after {
+    width: 80%;
 }
 
 .example-images-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: linear-gradient(135deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(6, 182, 212, 0.1) 100%);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
 }
 
 .fade-in {
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn var(--transition-slow);
 }
 
 @keyframes fadeIn {
@@ -56,73 +114,128 @@
 
 .example-item {
     text-align: center;
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
 }
 
 .example-img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     border: 1px solid rgba(139, 92, 246, 0.3);
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all var(--transition-slow);
+    box-shadow: var(--shadow-sm);
 }
 
 .example-img:hover {
     transform: scale(1.05);
+    border-color: var(--gradient-purple);
+    box-shadow:
+        var(--shadow-md),
+        0 0 30px rgba(139, 92, 246, 0.4);
 }
 
 .example-caption {
-    margin-top: 0.5rem;
+    margin-top: var(--spacing-sm);
     font-size: 0.85rem;
-    color: #888;
+    color: var(--color-text-tertiary);
+    font-weight: 500;
 }
+
+/* ============================================
+   INPUT MODE TOGGLE
+   ============================================ */
 
 .input-mode-toggle {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
 }
-
-/* ... rest of existing styles ... */
 
 .toggle-btn {
     flex: 1;
-    padding: 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 2px solid transparent;
     background: transparent;
-    color: #b0b0b0;
-    border-radius: 8px;
+    color: var(--color-text-tertiary);
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: all 0.2s;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all var(--transition-base);
+    position: relative;
+    z-index: 1;
 }
 
-.toggle-btn:hover {
-    border-color: rgba(139, 92, 246, 0.3);
-    background: rgba(139, 92, 246, 0.05);
+.toggle-btn:hover:not(.active) {
+    color: var(--color-text-secondary);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .toggle-btn.active {
-    border-color: #8b5cf6;
-    background: rgba(139, 92, 246, 0.2);
-    color: #fff;
+    background: linear-gradient(135deg,
+            rgba(139, 92, 246, 0.3) 0%,
+            rgba(6, 182, 212, 0.2) 100%);
+    color: var(--color-text-primary);
+    border-color: var(--gradient-purple);
+    box-shadow:
+        0 4px 15px rgba(139, 92, 246, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
+
+/* ============================================
+   UPLOAD INTERFACE
+   ============================================ */
 
 .upload-box-clean {
     display: block;
-    padding: 2rem;
-    border: 2px dashed rgba(139, 92, 246, 0.4);
-    border-radius: 12px;
-    background: rgba(139, 92, 246, 0.05);
+    padding: var(--spacing-2xl);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg,
+            rgba(139, 92, 246, 0.05) 0%,
+            rgba(6, 182, 212, 0.03) 100%);
     cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 1.5rem;
+    transition: all var(--transition-base);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-box-clean::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(139, 92, 246, 0.1),
+            transparent);
+    transition: left 0.6s ease;
+}
+
+.upload-box-clean:hover::before {
+    left: 100%;
 }
 
 .upload-box-clean:hover {
-    border-color: #8b5cf6;
-    background: rgba(139, 92, 246, 0.1);
+    border-color: var(--gradient-purple);
+    background: linear-gradient(135deg,
+            rgba(139, 92, 246, 0.1) 0%,
+            rgba(6, 182, 212, 0.06) 100%);
+    transform: translateY(-2px);
+    box-shadow:
+        var(--shadow-md),
+        0 0 30px rgba(139, 92, 246, 0.2);
 }
 
 .upload-placeholder {
@@ -130,46 +243,130 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #b0b0b0;
+    color: var(--color-text-secondary);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 .file-info {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--color-text-primary);
+    animation: slideIn var(--transition-base);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ============================================
+   TEXT INPUT
+   ============================================ */
+
+.text-input-section {
+    position: relative;
 }
 
 .text-input-area {
     width: 100%;
-    padding: 1rem;
-    border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    font-size: 1rem;
-    font-family: 'Monaco', 'Courier New', monospace;
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-border);
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.04) 0%,
+            rgba(255, 255, 255, 0.02) 100%);
+    color: var(--color-text-primary);
+    font-size: 0.95rem;
+    font-family: var(--font-mono);
     resize: vertical;
-    min-height: 150px;
+    min-height: 160px;
     line-height: 1.6;
+    transition: all var(--transition-base);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .text-input-area:focus {
     outline: none;
-    border-color: #8b5cf6;
-    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--gradient-purple);
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.04) 100%);
+    box-shadow:
+        inset 0 2px 8px rgba(0, 0, 0, 0.2),
+        0 0 0 3px rgba(139, 92, 246, 0.2),
+        0 4px 20px rgba(139, 92, 246, 0.3);
 }
 
 .text-input-area::placeholder {
-    color: #666;
+    color: var(--color-text-tertiary);
 }
+
+/* Character counter gradient */
+.text-input-section>div:last-child {
+    background: linear-gradient(90deg,
+            var(--gradient-cyan),
+            var(--gradient-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
 
 @media (max-width: 768px) {
     .example-images-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-md);
     }
 
     .example-img:hover {
-        transform: scale(1.2);
+        transform: scale(1.03);
+    }
+
+    .upload-box-clean {
+        padding: var(--spacing-xl);
+    }
+
+    .input-mode-toggle {
+        gap: var(--spacing-sm);
+    }
+
+    .toggle-btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .upload-placeholder span {
+        font-size: 2.5rem !important;
+    }
+
+    .text-input-area {
+        padding: var(--spacing-md);
+        min-height: 120px;
     }
 }

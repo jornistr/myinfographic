@@ -134,7 +134,7 @@ function App() {
     return (
         <div className="app-container">
             <header className="app-header">
-                <div className="logo">MyInfographic</div>
+                <div className="logo">📊 MyInfographic</div>
             </header>
 
             <main>

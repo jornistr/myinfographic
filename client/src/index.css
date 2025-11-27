@@ -1,7 +1,139 @@
+/* Import Premium Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Global Design Tokens */
+:root {
+    /* Colors - Vibrant Gradient System */
+    --color-bg-base: #0a0a0f;
+    --color-bg-elevated: #12121a;
+    --color-surface: rgba(255, 255, 255, 0.03);
+    --color-surface-hover: rgba(255, 255, 255, 0.06);
+
+    /* Gradient Stops */
+    --gradient-cyan: #06b6d4;
+    --gradient-purple: #8b5cf6;
+    --gradient-magenta: #ec4899;
+    --gradient-amber: #f59e0b;
+
+    /* Text Colors */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #a0a0a0;
+    --color-text-tertiary: #666666;
+
+    /* Accent Colors */
+    --color-accent-primary: var(--gradient-purple);
+    --color-accent-secondary: var(--gradient-cyan);
+    --color-error: #ef4444;
+    --color-success: #10b981;
+
+    /* Borders */
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-hover: rgba(255, 255, 255, 0.2);
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.3);
+
+    /* Typography */
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 400ms ease;
+}
+
+/* Animated Gradient Background */
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #0f0f13;
-    color: #e0e0e0;
+    font-family: var(--font-body);
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animated Mesh Gradient Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+    animation: meshMove 20s ease-in-out infinite;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes meshMove {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, -30px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.95);
+    }
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection Styling */
+::selection {
+    background: rgba(139, 92, 246, 0.3);
+    color: var(--color-text-primary);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-elevated);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--gradient-cyan), var(--gradient-purple));
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--gradient-purple), var(--gradient-magenta));
 }
